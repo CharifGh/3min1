@@ -1,0 +1,21 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>570</x><y>30</y><w>210</w><h>320</h></coordinates><panel_attributes>&lt;&lt;Stereotype&gt;&gt;
+Package::FatClass
+{Some Properties}
+--
+-id: Long
+_-ClassAttribute: Long_
+--
+#Operation(i: int): int
+/+AbstractOperation()/
+--
+Responsibilities
+-- Resp1
+*-- Resp2*</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>50</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: House_
+--
+id: coordinates
+[energy output]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>170</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: Battery
+--
+id: coordinates
+[energy intake]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>290</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: Cable_
+id: int
+[length]</panel_attributes><additional_attributes></additional_attributes></element></diagram>
