@@ -5,25 +5,22 @@
 # ****************************************
 
 
-from . import classes
-from . import data
+from classes import classes
+
 import csv, json
 
 if  __name__ == "__main__":
 
-    # implement load function
-    inputfiles = [file for file in data if file.endswith('.csv')]
-    outputfile = "json_data"
+#Example converting csv to json output
+    csvFilePath = "data/district-1_batteries.csv"
+    jsonFilePath = "district.json"
 
-    for file in inputfiles:
-        data={}
-        with open(data "r") as csvfile:
-            reader = csv.DictReader(csvfile)
-            for row in reader:
-                #id
-                #xas
-                #yas
-                #output/capacity
-
-        with open (outputfile, "a") as jsonfile:
-            jsonfile.wire(json.dumps(data, indent=2, sort_keys=True ))
+    data={}
+    with open(csvFilePath) as csvFile:
+        reader = csv.DictReader(csvFile)
+        for row in reader:
+            positie=row["positie"]
+            data[positie]= row
+        
+    with open (jsonFilePath, "w") as jsonfile:
+        jsonfile.write(json.dumps(data, indent=4 ))
