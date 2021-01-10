@@ -19,6 +19,7 @@ class District():
         self.batteries = self.load_batteries(batteries_file)
         self.houses = self.load_houses(houses_file)
 
+    # still returns address instead of info
     def load_batteries(self, batteries_file):
         """load all batteries into district"""
         with open (batteries_file, "r") as in_file:
@@ -28,7 +29,7 @@ class District():
             battery_instance = Battery(batteries[0], batteries[1], batteries[2]) 
         return battery_instance
 
-
+    # still returning address instead of info
     def load_houses(self, houses_file):
         """load all batteries into district"""
         with open (houses_file, "r") as f:
@@ -36,4 +37,7 @@ class District():
             houses_reader = csv.reader(f)
             houses = [row for row in houses_reader]
             house_instance = House(houses[0], houses[1], houses[2]) 
-        return house_instance
+        return house_instance 
+
+
+# first try was with dictionary using csv.DictReader.
