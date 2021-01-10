@@ -1,50 +1,38 @@
-
-
-class NearestHouse:
+def nearestHouse(district):
     """ 
     Calculates the houses closest to a battery and connects them 
     until max capacity is reached, then moves to the next battery
     """
+    batteries = district[0:4]
+    houses = district[5:]
 
-    def __init__(self, houses, batteries):
-        pass
-
-
-    def get_next_battery():
-        pass
-
-
-    def get_unconnected_houses():
-        pass
-
-
-    def calc_distance(battery, houses):
-        """
-        Calculates the distance from one battery to all unconnected houses
-        """
+    for battery in batteries:
         unconnected_houses = []
-
         for house in houses:
-            distance = (battery.x-grid - house.x-grid) + (battery.y-grid - house.y-grid)
-            house_data = {'distance': distance, 'output': house.house_output, 'id': house.house_id}
-            unconnected_houses.append(house_data)
+            if house.connected == False:
+                unconnected_houses.append(house)
+        
+        if len(unconnected_houses) > 0:
+            for house in unconnected_houses:
+                distance = (battery.x - house.x) + (battery.y - house.y)
+                # Hier coördinaten van de cable ipv alleen distance
+                house.cable = abs(distance)
+            
+            unconnected_houses.sort(key=lambda k: k.get('cable'))
+            total_output = 0
+            for house in unconnected_houses:
+                if total_output + house.maxoutput <= battery.capaciteit:
+                    house.connected = True
+                    total_output = total_output + house.maxoutput
+                else:
+                    break      
+        else:
+            break
 
-        connect_battery(unconnected_houses)
+    total_cables = sum(house['cable'] for house in houses)
+    costs = total_cables * 9
 
-
-    def connect_battery(unconnected_houses):
-        """
-        Connects the battery to the nearest unconnected houses until max 
-        capacity is reached
-        """
-        nearest_houses = sorted(unconnected_houses, key=lambda k: k['distance'])
-
-        connections = []
-        total_output = 0
-        while total_output <= battery.battery_capacity:
-            for house in nearest_houses:
-                connections.append(house.house_id)
-                total_output = total_output + house.house_output
+    return costs
 
 
 
