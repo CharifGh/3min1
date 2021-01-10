@@ -21,23 +21,27 @@ class District():
 
     # still returns address instead of info
     def load_batteries(self, batteries_file):
-        """load all batteries into district"""
-        with open (batteries_file, "r") as in_file:
-            next(in_file)
-            reader = csv.reader(in_file)
-            batteries = [row for row in reader]
-            battery_instance = Battery(batteries[0], batteries[1], batteries[2]) 
-        return battery_instance
+        """load all batteries into district"""   
+        batteries = []     
+        with open(batteries_file, "r") as in_file:
+            reader = csv.DictReader(in_file)
+            all_batteries = list(reader)
+            all_batteries.pop(0)
+            for battery in all_batteries:
+                batteries.append(Battery(battery['x'], battery['y'], battery['capaciteit']))  
+        return batteries
 
     # still returning address instead of info
     def load_houses(self, houses_file):
         """load all batteries into district"""
-        with open (houses_file, "r") as f:
-            next(f)
-            houses_reader = csv.reader(f)
-            houses = [row for row in houses_reader]
-            house_instance = House(houses[0], houses[1], houses[2]) 
-        return house_instance 
+        houses = []     
+        with open(houses_file, "r") as f:
+            reader = csv.DictReader(f)
+            all_houses = list(reader)
+            all_houses.pop(0)
+            for house in all_houses:
+                houses.append(House(house['x'], house['y'], house['maxoutput']))
+        return houses 
 
 
 # first try was with dictionary using csv.DictReader.

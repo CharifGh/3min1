@@ -5,6 +5,7 @@
 # ****************************************
 
 
+from code.algorithms.nearesthouse import nearestHouse
 from code.classes import battery, district, house
 
 import csv, json
@@ -26,5 +27,11 @@ if  __name__ == "__main__":
     # with open (jsonFilePath, "w") as jsonfile:
     #     jsonfile.write(json.dumps(data, indent=4 ))
 
-    test_district = district.District.load_batteries("data/district-1_batteries.csv","data/district-1_houses.csv")
-    print(test_district)
+    test_district = district.District("data/district-1_batteries.csv","data/district-1_houses.csv")
+    batteries = test_district.batteries
+    houses = test_district.houses
+
+    costs = nearestHouse(batteries, houses)
+
+    # To do: 
+    print(costs)
