@@ -26,5 +26,5 @@ if  __name__ == "__main__":
     # with open (jsonFilePath, "w") as jsonfile:
     #     jsonfile.write(json.dumps(data, indent=4 ))
 
-    test_district = district.District("data/district-1_batteries.csv","data/district-1_houses.csv")
-    print(f"this is{test_district}")
+    test_district = district.District.load_batteries("data/district-1_batteries.csv","data/district-1_houses.csv")
+    print(test_district)

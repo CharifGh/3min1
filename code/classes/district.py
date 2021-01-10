@@ -21,19 +21,19 @@ class District():
 
     def load_batteries(self, batteries_file):
         """load all batteries into district"""
-        batteries = {}
         with open (batteries_file, "r") as in_file:
-            reader=csv.DictReader(in_file)
-            for row in reader:
-                print(row)
-        return batteries
+            next(in_file)
+            reader = csv.reader(in_file)
+            batteries = [row for row in reader]
+            battery_instance = Battery(batteries[0], batteries[1], batteries[2]) 
+        return battery_instance
 
 
     def load_houses(self, houses_file):
         """load all batteries into district"""
-        houses = {}
         with open (houses_file, "r") as f:
-            houses_reader=csv.DictReader(f)
-            for row in houses_reader:
-                print(row)
-        return houses
+            next(f)
+            houses_reader = csv.reader(f)
+            houses = [row for row in houses_reader]
+            house_instance = House(houses[0], houses[1], houses[2]) 
+        return house_instance
