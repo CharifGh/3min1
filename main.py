@@ -31,7 +31,13 @@ if  __name__ == "__main__":
     batteries = test_district.batteries
     houses = test_district.houses
 
-    costs = nearestHouse(batteries, houses)
+    costs = nearestHouse(test_district)
+    for battery in batteries:
+        print(battery)
+        print(battery.connected_houses)
 
     # To do: 
     print(costs)
+
+
+    

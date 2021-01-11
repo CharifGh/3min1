@@ -12,8 +12,8 @@ class Battery():
         self.x_grid = x_grid
         self.y_grid = y_grid
         self.capacity = capacity
-        self.houses = []
-
+        self.location = f"{self.x_grid},{self.y_grid}"
+        self.connected_houses = []
 
     def get_x(self):
         """Returns x-coordinate"""
@@ -27,4 +27,8 @@ class Battery():
 
     def get_capacity(self):
         """Returns the capacity as a float"""
-        return int(float(self.capacity))    
+        return int(float(self.capacity)) 
+
+
+    def __repr__(self):
+        return self.location        

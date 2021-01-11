@@ -1,21 +1,27 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><element><id>UMLClass</id><coordinates><x>570</x><y>30</y><w>210</w><h>320</h></coordinates><panel_attributes>&lt;&lt;Stereotype&gt;&gt;
-Package::FatClass
-{Some Properties}
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>50</x><y>200</y><w>210</w><h>320</h></coordinates><panel_attributes>&lt;&lt;houses&gt;&gt;
+Package::HouseClass
+{Energy output}
 --
--id: Long
-_-ClassAttribute: Long_
+-id: coordinates
+_-ClassAttribute: Float
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>80</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: House_
 --
-#Operation(i: int): int
-/+AbstractOperation()/
+id: coordinates
+[energy output]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>420</x><y>80</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: Battery
 --
+id: coordinates
+[energy intake]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>80</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: District
+id=int
+[loads houses and batteries]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>420</x><y>200</y><w>210</w><h>320</h></coordinates><panel_attributes>&lt;&lt;batteries&gt;&gt;
+Package::BatteryClass
+{Energy intake}
+--
+-id: coordinates
+-ClassAttribute: Float
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>780</x><y>200</y><w>210</w><h>320</h></coordinates><panel_attributes>&lt;&lt;Districts&gt;&gt;
+Package:DisrictClass
+{loads houses and batteries}
+--
+
 Responsibilities
--- Resp1
-*-- Resp2*</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>50</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: House_
---
-id: coordinates
-[energy output]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>170</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: Battery
---
-id: coordinates
-[energy intake]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>290</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: Cable_
-id: int
-[length]</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+-return houses and batteries</panel_attributes><additional_attributes></additional_attributes></element></diagram>

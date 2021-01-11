@@ -14,7 +14,7 @@ class House():
         self.output = output
         self.cable = 0
         self.connected = False
-
+        self.location =  f"{self.x_grid},{self.y_grid}"
 
     def get_x(self):
         """Returns x-coordinate"""
@@ -36,15 +36,10 @@ class House():
         return int(self.cable) 
 
 
-    def is_connected(self):
-        """Returns a boolean value"""
-        return self.connected
-
-
-    def make_connection(self):
-        """Sets the connected value to True"""
-        self.connected = True    
-
-
     def set_cable(self, length_cable):
+        """Saves length of cable"""
         self.cable = length_cable
+
+
+    def __repr__(self):
+        return self.location    

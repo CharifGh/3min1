@@ -19,9 +19,8 @@ class District():
         self.batteries = self.load_batteries(batteries_file)
         self.houses = self.load_houses(houses_file)
 
-    # still returns address instead of info
     def load_batteries(self, batteries_file):
-        """load all batteries into district"""   
+        """Load all batteries into district"""   
         batteries = []     
         with open(batteries_file, "r") as in_file:
             reader = csv.DictReader(in_file)
@@ -33,7 +32,7 @@ class District():
 
     # still returning address instead of info
     def load_houses(self, houses_file):
-        """load all batteries into district"""
+        """Load all batteries into district"""
         houses = []     
         with open(houses_file, "r") as f:
             reader = csv.DictReader(f)
@@ -43,5 +42,29 @@ class District():
                 houses.append(House(house['x'], house['y'], house['maxoutput']))
         return houses 
 
+    
+    def unconnected_houses(self):
+        """List of all unconnected houses"""
+        unconnected_houses = [house for house in self.houses if house.connected == False] 
+        return unconnected_houses
 
-# first try was with dictionary using csv.DictReader.
+
+    def make_connections(self, battery, house):
+        """Make connections between the battery and house instances"""
+        battery.connected_houses.append(house)
+        
+    
+    def house_connected(self, house):
+        """Sets the connected value of a house to True"""
+        house.connected = True    
+
+
+    def get_batteries(self):
+        return self.batteries
+    
+
+    def get_houses(self):
+        return self.houses
+
+    
+    #Toegang  tot alle afstanden

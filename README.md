@@ -15,3 +15,7 @@ Stappenplan:
 2. functies bouwen voor house en battery
 3. algorithm (deels) toevoegen aan algorithm folder
 4. output testen in main.py 
+
+
+# eerst abstract bijhhouden in een datastructuur
+# kabels later relevant maken 
