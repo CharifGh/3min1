@@ -25,7 +25,6 @@ class District():
         with open(batteries_file, "r") as in_file:
             reader = csv.DictReader(in_file)
             all_batteries = list(reader)
-            all_batteries.pop(0)
             for battery in all_batteries:
                 batteries.append(Battery(battery['x'], battery['y'], battery['capaciteit']))  
         return batteries
@@ -37,7 +36,6 @@ class District():
         with open(houses_file, "r") as f:
             reader = csv.DictReader(f)
             all_houses = list(reader)
-            all_houses.pop(0)
             for house in all_houses:
                 houses.append(House(house['x'], house['y'], house['maxoutput']))
         return houses 

@@ -7,6 +7,7 @@
 
 from code.algorithms.nearesthouse import nearestHouse
 from code.classes import battery, district, house
+from code.visualisation.visualisation import make_district
 
 import csv, json
 
@@ -31,6 +32,7 @@ if  __name__ == "__main__":
     batteries = test_district.batteries
     houses = test_district.houses
 
+    visual_district = make_district(test_district)
     costs = nearestHouse(test_district)
     for battery in batteries:
         print(battery)
@@ -38,6 +40,7 @@ if  __name__ == "__main__":
 
     # To do: 
     print(costs)
+    print(test_district)
 
 
     

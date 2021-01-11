@@ -27,7 +27,7 @@ class Battery():
 
     def get_capacity(self):
         """Returns the capacity as a float"""
-        return int(float(self.capacity)) 
+        return float(self.capacity)
 
 
     def __repr__(self):

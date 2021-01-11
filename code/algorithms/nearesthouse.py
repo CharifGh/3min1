@@ -1,3 +1,5 @@
+import random
+
 def nearestHouse(district):
     """ 
     Calculates the houses closest to a battery and connects them 
@@ -8,6 +10,7 @@ def nearestHouse(district):
     batteries = district.get_batteries()
     houses = district.get_houses()
     
+    random.shuffle(batteries)
     for battery in batteries:
         unconnected_houses = district.unconnected_houses()
 
