@@ -33,17 +33,17 @@ if  __name__ == "__main__":
     batteries = test_district.batteries
     houses = test_district.houses
 
-    visual_district = make_district(test_district)
-    costs = Random(test_district)
-    for battery in batteries:
-        print(f"this is battery at: {battery}")
-        for house in battery.connected_houses:
-            print(f"this is house at: {house.location}")
-            print(f"cable has length: {house.cable}")
-            print(f"cable points: {house.cable_points}")
 
-    # To do: 
-    print(costs)
+    # visual_district = make_district(test_district)
+    costs = Random(test_district)
+    
+
+    for battery in test_district.get_batteries():
+        print(battery.get_total_input()) 
+   
+    for house in test_district.unconnected_houses():
+        print(house.output)
+    # print(costs)
 
 
     
