@@ -35,8 +35,11 @@ if  __name__ == "__main__":
     visual_district = make_district(test_district)
     costs = nearestHouse(test_district)
     for battery in batteries:
-        print(battery)
-        print(battery.connected_houses)
+        print(f"this is battery at: {battery}")
+        for house in battery.connected_houses:
+            print(f"this is house at: {house.location}")
+            print(f"cable has length: {house.cable}")
+            print(house.cable_points)
 
     # To do: 
     print(costs)

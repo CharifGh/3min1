@@ -15,6 +15,7 @@ class House():
         self.cable = 0
         self.connected = False
         self.location =  f"{self.x_grid},{self.y_grid}"
+        self.cable_points = []
 
     def get_x(self):
         """Returns x-coordinate"""
@@ -28,7 +29,7 @@ class House():
 
     def get_output(self):
         """Returns output as a float"""
-        return int(float(self.output))
+        return float(self.output)
 
 
     def get_cable(self):
@@ -39,6 +40,37 @@ class House():
     def set_cable(self, length_cable):
         """Saves length of cable"""
         self.cable = length_cable
+
+
+    def construct_cable(self, bat_x, bat_y, house_x, house_y, distance):
+        """Calculates the x,y-intersections the cable crosses"""
+        # Needs simplification
+        cx = 0
+        cy = 0
+        bx = bat_x
+        by = bat_y
+        hx = house_x
+        hy = house_y
+        self.cable_points.append(f"{hx},{hy}")
+        for i in range(distance):
+            if bx > hx:
+                cx = hx+1
+                hx = hx+1
+            if bx < hx:
+                cx = hx-1
+                hx = hx-1
+            if bx == hx:
+                cx = hx
+            if by > hy:
+                cy = hy+1
+                hy = hy+1
+            if by < hy:
+                cy = hy-1
+                hy = hy-1
+            if by == hy:
+                cy = hy
+            self.cable_points.append(f"{cx},{cy}") 
+            i = i+1
 
 
     def __repr__(self):

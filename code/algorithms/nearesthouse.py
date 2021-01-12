@@ -10,14 +10,13 @@ def nearestHouse(district):
     batteries = district.get_batteries()
     houses = district.get_houses()
     
-    random.shuffle(batteries)
     for battery in batteries:
         unconnected_houses = district.unconnected_houses()
 
         if len(unconnected_houses) > 0:
             for house in unconnected_houses:
-                distance = (battery.get_x() - house.get_x()) + (battery.get_y() - house.get_y())
-                house.set_cable(abs(distance))
+                distance = (abs(battery.get_x() - house.get_x()) + abs(battery.get_y() - house.get_y()) - 1)
+                house.set_cable(distance)
             
             unconnected_houses.sort(key=lambda k: k.get_cable())
             total_output = 0
@@ -26,6 +25,9 @@ def nearestHouse(district):
                     district.house_connected(house) 
                     total_output = total_output + house.get_output()
                     district.make_connections(battery, house)
+
+                    # Needs simplification
+                    house.construct_cable(battery.get_x(), battery.get_y(), house.get_x(), house.get_y(), house.cable)
                 else:
                     break      
         else:
