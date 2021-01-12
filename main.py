@@ -33,17 +33,18 @@ if  __name__ == "__main__":
     batteries = test_district.batteries
     houses = test_district.houses
 
-
-    # visual_district = make_district(test_district)
-    costs = Random(test_district)
-    
-
-    for battery in test_district.get_batteries():
-        print(battery.get_total_input()) 
    
-    for house in test_district.unconnected_houses():
-        print(house.output)
-    # print(costs)
+    # visual_district = make_district(test_district)
+    lowest = 3000
+    for i in range(10000):
+        if i%1000000 == 0:
+            print(i)
+        possibility = Random(test_district)
+        if possibility < lowest:
+            lowest = possibility
+    
+ 
+    print(lowest)
 
 
     
