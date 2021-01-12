@@ -34,7 +34,7 @@ if  __name__ == "__main__":
     houses = test_district.houses
 
     visual_district = make_district(test_district)
-    costs = nearestHouse(test_district)
+    costs = Random(test_district)
     for battery in batteries:
         print(f"this is battery at: {battery}")
         for house in battery.connected_houses:

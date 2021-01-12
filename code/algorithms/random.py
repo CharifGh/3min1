@@ -1,32 +1,34 @@
+import random
+
 def Random(district):
     """ Randomly connects houses and batteries """
 
-    batteries = district.get_batteries()
+    # begin met huizen ophalen
+    # koppel huizen aan (Random batterijen)
+    # hou voor elk batterij bij dat het niet meer is dan total input
+    # als het meer is andere batterij koppelen
+
+    
     houses = district.get_houses()
 
-    total_cables = sum(house.get_cable() for house in houses)
-    costs = total_cables * 9
-
-    for battery in batteries:
-        unconnected_houses = district.unconnected_houses()
-
-        if len(unconnected_houses) > 0:
-            for house in unconnected_houses:
-                distance = (battery.get_x() - house.get_x()) + (battery.get_y() - house.get_y())
-                house.set_cable(abs(distance))
-            
-            unconnected_houses.sort(key=lambda k: k.get_cable())
-            total_output = 0
-            for house in unconnected_houses:   
-                district.house_connected(house) 
-                total_output = total_output + house.get_output()
-                district.make_connections(battery, house)
-
-                house.construct_cable(battery.get_x(), battery.get_y(), house.get_x(), house.get_y(), house.cable)
+    for house in houses:
+        batteries = district.get_batteries()
+        random.choice(batteries)
+        for battery in batteries:
+            if battery.capacity < house.output and house.connected == False:
+                   district.make_connections(house, battery)
+                   house.house_connected(house)
+                   battery.set_total_input(house)
+                   
             else:
-                break      
-        else:
-            break
+                 random.choice(batteries)
+
+            if len(houses) > 0:
+                for house in houses:
+                    distance = (battery.x_grid - house.x_grid + (battery.y_grid - house.y_grid))
+                    house.set_cable(abs(distance))
+                    
+                    house.construct_cable(battery.x_grid, battery.y_grid, house.x_grid, house.y_grid, house.cable)
 
     total_cables = sum(house.get_cable() for house in houses)
     costs = total_cables * 9
