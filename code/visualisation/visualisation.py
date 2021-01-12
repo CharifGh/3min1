@@ -10,12 +10,12 @@ def make_district(district):
 
     fig, ax = plt.subplots()
     ax.axis([-1, 51, -1, 51])
-    bx = list(battery.get_x() for battery in batteries)
-    by = list(battery.get_y() for battery in batteries)
+    bx = list(battery.x_grid for battery in batteries)
+    by = list(battery.y_grid for battery in batteries)
     ax.plot([bx], [by], 'ro')
 
-    hx = list(house.get_x() for house in houses)
-    hy = list(house.get_y() for house in houses)
+    hx = list(house.x_grid for house in houses)
+    hy = list(house.y_grid for house in houses)
     ax.plot([hx], [hy], 'g+') 
     
     ax.set_xticks(np.arange(0, 51, 5))

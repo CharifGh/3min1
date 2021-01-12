@@ -29,7 +29,7 @@ class District():
                 batteries.append(Battery(battery['x'], battery['y'], battery['capaciteit']))  
         return batteries
 
-    # still returning address instead of info
+
     def load_houses(self, houses_file):
         """Load all batteries into district"""
         houses = []     
@@ -65,4 +65,10 @@ class District():
         return self.houses
 
     
-    #Toegang  tot alle afstanden
+    # def data_set(self):
+    #     self.houses
+    #     self.batteries
+        
+    #     for battery in self.batteries: 
+    #         for house in self.houses:
+    #             distance = (abs(battery.x_grid - house.x_grid) + abs(battery.y_grid() - house.Y_grid) - 1)

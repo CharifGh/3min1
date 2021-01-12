@@ -6,6 +6,7 @@
 
 
 from code.algorithms.nearesthouse import nearestHouse
+from code.algorithms.random import Random
 from code.classes import battery, district, house
 from code.visualisation.visualisation import make_district
 
@@ -39,11 +40,10 @@ if  __name__ == "__main__":
         for house in battery.connected_houses:
             print(f"this is house at: {house.location}")
             print(f"cable has length: {house.cable}")
-            print(house.cable_points)
+            print(f"cable points: {house.cable_points}")
 
     # To do: 
     print(costs)
-    print(test_district)
 
 
     

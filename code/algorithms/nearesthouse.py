@@ -15,19 +15,19 @@ def nearestHouse(district):
 
         if len(unconnected_houses) > 0:
             for house in unconnected_houses:
-                distance = (abs(battery.get_x() - house.get_x()) + abs(battery.get_y() - house.get_y()) - 1)
+                distance = (abs(battery.x_grid - house.x_grid) + abs(battery.y_grid - house.y_grid - 1))
                 house.set_cable(distance)
             
             unconnected_houses.sort(key=lambda k: k.get_cable())
             total_output = 0
             for house in unconnected_houses:
-                if total_output + house.get_output() <= battery.get_capacity():
+                if total_output + house.output <= battery.capacity:
                     district.house_connected(house) 
-                    total_output = total_output + house.get_output()
+                    total_output = total_output + house.output
                     district.make_connections(battery, house)
 
                     # Needs simplification
-                    house.construct_cable(battery.get_x(), battery.get_y(), house.get_x(), house.get_y(), house.cable)
+                    house.construct_cable(battery.x_grid, battery.y_grid, house.x_grid, house.y_grid, house.cable)
                 else:
                     break      
         else:
