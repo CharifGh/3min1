@@ -34,17 +34,17 @@ if  __name__ == "__main__":
     houses = test_district.houses
 
    
-    # visual_district = make_district(test_district)
-    lowest = 3000
-    for i in range(10000):
-        if i%1000000 == 0:
-            print(i)
-        possibility = Random(test_district)
-        if possibility < lowest:
-            lowest = possibility
+    
+    possibility = nearestHouse(test_district)
+    visual_district = make_district(test_district)
     
  
-    print(lowest)
-
+    print(possibility)
 
     
+    for battery in batteries:
+        print(battery.location)
+        for house in battery.connected_houses:
+            print(house.location)
+            print(house.cable)
+            print(house.cable_points)

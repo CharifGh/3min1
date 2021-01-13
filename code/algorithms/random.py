@@ -18,13 +18,15 @@ def Random(district):
                 if battery.get_total_input() + house.output <= battery.capacity:
                     district.make_connections(battery, house)
                     house.connected = True
-                    distance = (battery.x_grid - house.x_grid + (battery.y_grid - house.y_grid))
-                    house.set_cable(abs(distance))
+                    distance = (abs(battery.x_grid - house.x_grid) + abs(battery.y_grid - house.y_grid))
+                    house.set_cable(distance)
                     battery.set_total_input(house.output)
+                    house.construct_cable(battery.x_grid, battery.y_grid, house.x_grid, house.y_grid, house.cable)
                     break
             if house.connected == False:
                 for house in district.houses:
                     house.connected = False
+                    house.cable_points = []
                 for battery in batteries:
                     battery.set_total_input(0)
                     battery.connected_houses = []    

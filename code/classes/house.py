@@ -37,24 +37,29 @@ class House():
         by = bat_y
         hx = house_x
         hy = house_y
+        set_y = False
         self.cable_points.append(f"{hx},{hy}")
         for i in range(distance):
             if bx > hx:
                 cx = hx+1
                 hx = hx+1
+                cy = hy
             if bx < hx:
                 cx = hx-1
                 hx = hx-1
+                cy = hy
             if bx == hx:
                 cx = hx
-            if by > hy:
-                cy = hy+1
-                hy = hy+1
-            if by < hy:
-                cy = hy-1
-                hy = hy-1
-            if by == hy:
-                cy = hy
+                if set_y:
+                    if by > hy:
+                        cy = hy+1
+                        hy = hy+1
+                    if by < hy:
+                        cy = hy-1
+                        hy = hy-1
+                    if by == hy:
+                        cy = hy
+                set_y = True        
             self.cable_points.append(f"{cx},{cy}") 
             i = i+1
 
