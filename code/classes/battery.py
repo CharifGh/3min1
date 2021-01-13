@@ -14,16 +14,12 @@ class Battery():
         self.capacity = float(capacity)
         self.location = f"{self.x_grid},{self.y_grid}"
         self.connected_houses = []
-        self.total_input = 0
 
 
     def get_total_input(self):
-        return self.total_input
-
-    def set_total_input(self, house):
-        self.total_input = self.total_input + house 
-
-
+        """Returns total input the battery receives from the connected houses"""
+        total_input = sum(house.output for house in self.connected_houses)
+        return total_input
 
 
     def __repr__(self):

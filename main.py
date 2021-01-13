@@ -6,7 +6,7 @@
 
 
 from code.algorithms.nearesthouse import nearestHouse
-from code.algorithms.random import Random
+from code.algorithms.random import randomly_connect
 from code.classes import battery, district, house
 from code.visualisation.visualisation import make_district
 
@@ -30,21 +30,11 @@ if  __name__ == "__main__":
     #     jsonfile.write(json.dumps(data, indent=4 ))
 
     test_district = district.District("data/district-1_batteries.csv","data/district-1_houses.csv")
-    batteries = test_district.batteries
-    houses = test_district.houses
-
    
     
-    possibility = nearestHouse(test_district)
+    possibility = randomly_connect(test_district)
     visual_district = make_district(test_district)
     
  
-    print(possibility)
+    print(possibility.calc_costs())
 
-    
-    for battery in batteries:
-        print(battery.location)
-        for house in battery.connected_houses:
-            print(house.location)
-            print(house.cable)
-            print(house.cable_points)
