@@ -18,6 +18,7 @@ class District():
     def __init__(self, batteries_file, houses_file):
         self.batteries = self.load_batteries(batteries_file)
         self.houses = self.load_houses(houses_file)
+        self.retries = 0
 
     def load_batteries(self, batteries_file):
         """Load all batteries into district"""   
@@ -74,3 +75,18 @@ class District():
         """Returns the total length of all cables"""
         total_cable_length = sum(house.get_cable_length() for house in self.houses)    
         return total_cable_length
+
+
+    def add_retry(self):
+        self.retries = self.retries +1
+
+
+    def try_again(self):
+        for house in self.get_houses():
+            house.connected = False
+            house.cable_points = []
+            house.reset_cable_length()
+        for battery in self.get_batteries():
+            battery.connected_houses = []    
+
+            

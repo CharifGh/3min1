@@ -22,15 +22,8 @@ def randomly_connect(district):
                 house.construct_cable(battery)
                 break
         if house.connected == False:
-            try_again(district)
+            district.add_retry()
+            district.try_again()
     return district        
-
-
-def try_again(district):
-    for house in district.get_houses():
-        house.connected = False
-        house.cable_points = []
-        house.reset_cable_length()
-    for battery in district.get_batteries():
-        battery.connected_houses = []    
+   
 
