@@ -39,7 +39,7 @@ if  __name__ == "__main__":
     # print(possibility.calc_costs())
     # print(possibility.retries)
    
-
+    # Calculate baseline
     total_costs = 0
     total_retries = 0
     lowest_costs = 6000
