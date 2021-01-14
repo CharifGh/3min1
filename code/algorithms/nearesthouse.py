@@ -5,22 +5,29 @@ def nearestHouse(district):
     Returns the total costs of the cables.
     """
 
-    batteries = district.get_batteries()
+    all_distances = []
+    for battery in district.get_batteries():
+        for house in district.get_houses():
+            cable_length = (abs(battery.x_grid - house.x_grid) + abs(battery.y_grid - house.y_grid))
+            all_distances.append({'distance': cable_length, 'house': house, 'battery': battery})
+            
+    all_distances.sort(key=lambda k: k['distance'])    
+
     
-    for battery in batteries:
-        unconnected_houses = district.unconnected_houses()
-
-        for house in unconnected_houses:
+    for item in all_distances:
+        house = item['house']
+        battery = item['battery']
+        if house.connected == False and (house.output + battery.get_total_input()) < battery.capacity:
+            district.make_connection(battery, house)
+            house.connected = True
             house.set_cable_length(battery)
-        
-        unconnected_houses.sort(key=lambda k: k.get_cable_length())
-        for house in unconnected_houses:
-            if battery.get_total_input() + house.output <= battery.capacity:
-                house.connected = True 
-                district.make_connection(battery, house)
-                house.construct_cable(battery)
-            else:
-                break      
+            house.construct_cable(battery)
+
+    return district        
 
 
-    return district
+
+
+
+
+    
