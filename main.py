@@ -32,13 +32,20 @@ if  __name__ == "__main__":
 
     best_result = None
     lowest_cables = 6000
-    for i in range(10000):
+    total_retries = 0
+    total_costs = 0
+    for i in range(1000):
         test_district = district.District("data/district-1_batteries.csv","data/district-1_houses.csv")
         possibility = randomly_connect(test_district)
+        total_retries = total_retries + possibility.retries
+        total_costs = total_costs + possibility.calc_costs()
         if possibility.calc_costs() < lowest_cables:
             lowest_cables = possibility.calc_costs()
             best_result = possibility
     
+    print(total_retries/1000)
+    print(total_costs/1000)
+
     best_result.get_output()
     visual_district = make_district(best_result)
     print(best_result.calc_costs())

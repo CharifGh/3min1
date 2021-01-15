@@ -73,7 +73,7 @@ class District():
 
     def calc_costs(self):
         """Returns the total length of all cables"""
-        total_cable_length = sum(house.get_cable_length() for house in self.houses)    
+        total_cable_length = sum(house.get_cable_length()+1 for house in self.houses)    
         return total_cable_length
 
 
