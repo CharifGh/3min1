@@ -42,29 +42,26 @@ class House():
         by = battery.y_grid
         hx = self.x_grid
         hy = self.y_grid
-        set_y = False
         self.cable_points.append(f"{hx},{hy}")
         for i in range(self.cable_length):
             if bx > hx:
                 cx = hx+1
                 hx = hx+1
                 cy = hy
-            if bx < hx:
+            elif bx < hx:
                 cx = hx-1
                 hx = hx-1
                 cy = hy
-            if bx == hx:
+            elif bx == hx:
                 cx = hx
-                if set_y:
-                    if by > hy:
-                        cy = hy+1
-                        hy = hy+1
-                    if by < hy:
-                        cy = hy-1
-                        hy = hy-1
-                    if by == hy:
-                        cy = hy
-                set_y = True        
+                if by > hy:
+                    cy = hy+1
+                    hy = hy+1
+                elif by < hy:
+                    cy = hy-1
+                    hy = hy-1
+                elif cy == hy:
+                    cy = hy       
             self.cable_points.append(f"{cx},{cy}") 
             i = i+1
 

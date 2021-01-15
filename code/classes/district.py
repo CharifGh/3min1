@@ -12,7 +12,7 @@
 from .battery import Battery
 from .house import House
 
-import csv
+import csv, json
 
 class District():
     def __init__(self, batteries_file, houses_file):
@@ -82,6 +82,7 @@ class District():
 
 
     def try_again(self):
+        """Resets values to default"""
         for house in self.get_houses():
             house.connected = False
             house.cable_points = []
@@ -90,3 +91,32 @@ class District():
             battery.connected_houses = []    
 
             
+    def get_all_distances(self):
+        """Calculates all distances between batteries and houses, returns a list of dicts"""
+        all_distances = []
+        for battery in self.get_batteries():
+            for house in self.get_houses():
+                cable_length = (abs(battery.x_grid - house.x_grid) + abs(battery.y_grid - house.y_grid))
+                all_distances.append({'distance': cable_length, 'house': house, 'output': house.output, 'battery': battery})
+                  
+        return all_distances
+
+
+    def get_output(self):
+        """Get all necessary data and puts it in a json file"""
+        all_data = []
+        costs_own = 0
+        costs_own = self.calc_costs()*9  
+        for battery in self.get_batteries():
+            costs_own = costs_own+5000
+        all_data.append({'district': 1, 'costs-own': costs_own})
+        for battery in self.get_batteries():
+            houses = [] 
+            for house in battery.connected_houses:
+                houses.append({'location': house.location, 'output': house.output, 'cables': house.cable_points})
+            all_data.append({'location': battery.location, 'capacity': battery.capacity, 'houses': houses})
+
+        out_file = open('output.json', 'w')
+        json.dump(all_data, out_file)
+
+        out_file.close()   

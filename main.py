@@ -29,16 +29,17 @@ if  __name__ == "__main__":
     # with open (jsonFilePath, "w") as jsonfile:
     #     jsonfile.write(json.dumps(data, indent=4 ))
 
-    test_district = district.District("data/district-1_batteries.csv","data/district-1_houses.csv")
-   
+
+    best_result = None
+    lowest_cables = 6000
+    for i in range(10000):
+        test_district = district.District("data/district-1_batteries.csv","data/district-1_houses.csv")
+        possibility = randomly_connect(test_district)
+        if possibility.calc_costs() < lowest_cables:
+            lowest_cables = possibility.calc_costs()
+            best_result = possibility
     
-    possibility = nearestHouse(test_district)
-    visual_district = make_district(test_district)
-    
- 
-    print(possibility.calc_costs())
-    print(possibility.unconnected_houses())
-    for un_house in possibility.unconnected_houses():
-        print(un_house.output)
-    # print(possibility.retries)
+    best_result.get_output()
+    visual_district = make_district(best_result)
+    print(best_result.calc_costs())
    
