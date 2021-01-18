@@ -1,29 +1,16 @@
 import random
 
-
-def get_next_house(district):
-    return random.choice(district.unconnected_houses())
-
-
-def get_all_batteries(district):
-    batteries = district.get_batteries()
-    random.shuffle(batteries)
-    return batteries
-        
-            
 def randomly_connect(district):
+    """Makes random connections between houses and batteries but only if valid"""
     while district.unconnected_houses():
-        house = get_next_house(district)
-        for battery in get_all_batteries(district):
-            if battery.get_total_input() + house.output <= battery.capacity:
-                district.make_connection(battery, house)
-                house.connected = True
-                house.set_cable_length(battery)
-                house.construct_cable(battery)
-                break
-        if house.connected == False:
+        all_connections = district.get_false_connections()
+        random.shuffle(all_connections)
+        for connection in all_connections:
+            if not connection.house.get_status() and connection.output <= (connection.battery.capacity - connection.battery.get_total_input()):
+                district.make_connection(connection)
+
+        if district.unconnected_houses():
             district.add_retry()
             district.try_again()
-    return district        
-   
-
+        
+    return district 

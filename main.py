@@ -5,48 +5,32 @@
 # ****************************************
 
 
-from code.algorithms.nearesthouse import nearestHouse
+from code.algorithms.firstalgorithm import FirstAlgorithm as fa
 from code.algorithms.random import randomly_connect
-from code.classes import battery, district, house
+from code.algorithms.nearesthouse import nearestHouse
+from code.classes import district
 from code.visualisation.visualisation import make_district
-
-import csv, json
 
 if  __name__ == "__main__":
     
 
-#Example converting csv to json output
-    # csvFilePath = "data/district-1_batteries.csv"
-    # jsonFilePath = "district.json"
+    total_best = None
+    total_lowest = 10000
 
-    # data={}
-    # with open(csvFilePath) as csvFile:
-    #     reader = csv.DictReader(csvFile)
-    #     for row in reader:
-    #         positie=row["positie"]
-    #         data[positie]= row
-        
-    # with open (jsonFilePath, "w") as jsonfile:
-    #     jsonfile.write(json.dumps(data, indent=4 ))
-
-
-    best_result = None
-    lowest_cables = 6000
-    total_retries = 0
-    total_costs = 0
-    for i in range(1000):
+    for f in range(1):
         test_district = district.District("data/district-1_batteries.csv","data/district-1_houses.csv")
-        possibility = randomly_connect(test_district)
-        total_retries = total_retries + possibility.retries
-        total_costs = total_costs + possibility.calc_costs()
-        if possibility.calc_costs() < lowest_cables:
-            lowest_cables = possibility.calc_costs()
-            best_result = possibility
-    
-    print(total_retries/1000)
-    print(total_costs/1000)
+        possibility = nearestHouse(test_district)
+        print(f"Total cable length of semi-random valid solution ({f}): {possibility.calc_costs()}")
 
-    best_result.get_output()
-    visual_district = make_district(best_result)
-    print(best_result.calc_costs())
-   
+        first_algorithm = fa(possibility)
+        first_algorithm.do_stuff_with_connections(200)
+
+        print(f"Total cable length after algorithm ({f}): {first_algorithm.district.calc_costs()}")
+        
+        if first_algorithm.district.calc_costs() < total_lowest:
+            total_best = first_algorithm.district
+            total_lowest = first_algorithm.district.calc_costs()
+
+    print(f"Best solution: {total_lowest}")
+    total_best.make_cables()
+    visual_district = make_district(total_best)

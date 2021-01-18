@@ -1,29 +1,36 @@
+from operator import attrgetter
+import random
+
 def nearestHouse(district):
     """ 
     Calculates the houses closest to a battery and connects them 
     until max capacity is reached, then moves to the next battery.
     Returns the total costs of the cables.
     """
+    while district.unconnected_houses():
+        all_houses = district.get_houses()
+        all_houses.sort(key=attrgetter('output'))
 
-    all_distances = []
-    for battery in district.get_batteries():
-        for house in district.get_houses():
-            cable_length = (abs(battery.x_grid - house.x_grid) + abs(battery.y_grid - house.y_grid))
-            all_distances.append({'distance': cable_length, 'house': house, 'battery': battery})
-            
-    all_distances.sort(key=lambda k: k['distance'])    
+        i=0 
+        for i in range(30):
+            house = all_houses[i]
+            house_connections = [con for con in district.get_false_connections() if con.house == house]
+            house_connections.sort(key=attrgetter('distance')) 
+            best_connection = house_connections[0]
+            if not best_connection.house.get_status() and best_connection.output <= (best_connection.battery.capacity - best_connection.battery.get_total_input()):
+                district.make_connection(best_connection)
+            i = i+1
 
-    
-    for item in all_distances:
-        house = item['house']
-        battery = item['battery']
-        if house.connected == False and (house.output + battery.get_total_input()) < battery.capacity:
-            district.make_connection(battery, house)
-            house.connected = True
-            house.set_cable_length(battery)
-            house.construct_cable(battery)
+        all_connections = district.get_false_connections()
+        random.shuffle(all_connections)
+        for connection in all_connections:
+            if not connection.house.get_status() and connection.output <= (connection.battery.capacity - connection.battery.get_total_input()):
+                district.make_connection(connection)
+        if district.unconnected_houses():
+            district.try_again()
 
-    return district        
+        if district.check_validity():
+            return district      
 
 
 

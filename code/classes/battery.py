@@ -16,10 +16,27 @@ class Battery():
         self.connected_houses = []
 
 
+    def add_house(self, house): 
+        self.connected_houses.append(house)
+
+
+    def remove_house(self, house):
+        self.connected_houses.remove(house)
+
+
+    def remove_all_houses(self):
+        self.connected_houses = []    
+
+
     def get_total_input(self):
         """Returns total input the battery receives from the connected houses"""
         total_input = sum(house.output for house in self.connected_houses)
         return total_input
+
+
+    def get_free_capacity(self, output):
+        free_capacity = self.capacity - (self.get_total_input() - output)
+        return free_capacity
 
 
     def __repr__(self):

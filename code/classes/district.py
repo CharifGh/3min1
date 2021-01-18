@@ -11,14 +11,23 @@
 
 from .battery import Battery
 from .house import House
+from .connection import Connection
 
 import csv, json
 
 class District():
     def __init__(self, batteries_file, houses_file):
+        self.name = 1
         self.batteries = self.load_batteries(batteries_file)
         self.houses = self.load_houses(houses_file)
         self.retries = 0
+        self.connections = self.get_all_connections()
+
+
+    def get_name(self):
+        """District is going to need a name"""
+        pass
+
 
     def load_batteries(self, batteries_file):
         """Load all batteries into district"""   
@@ -41,6 +50,16 @@ class District():
                 houses.append(House(house['x'], house['y'], house['maxoutput']))
         return houses 
 
+               
+    def get_all_connections(self):
+        """Calculates all distances between batteries and houses, returns a list of dicts"""
+        connections = []
+        for battery in self.get_batteries():
+            for house in self.get_houses():
+                connection = Connection(self, battery, house)
+                connections.append(connection)
+        return connections      
+
     
     def get_batteries(self):
         """Returns all the batteries"""
@@ -54,52 +73,76 @@ class District():
     
     def unconnected_houses(self):
         """List of all unconnected houses"""
-        unconnected_houses = [house for house in self.houses if house.connected == False] 
+        unconnected_houses = [house for house in self.houses if not house.get_status()] 
         return unconnected_houses
 
 
-    def make_connection(self, battery, house):
-        """Make connections between the battery and house instances"""
-        battery.connected_houses.append(house)
+    def make_connection(self, connection):
+        """Make a connection between a battery and a house"""
+        connection.make_connection()
+        connection.battery.add_house(connection.house)
+        connection.house.set_connection()
         
 
-    def check_validity(self):
-        """Checks if solution is valid"""
-        for house in self.houses:
-            if house.connected == False:
-                return False
-        return True        
-
-
-    def calc_costs(self):
-        """Returns the total length of all cables"""
-        total_cable_length = sum(house.get_cable_length()+1 for house in self.houses)    
-        return total_cable_length
+    def break_connection(self, connection):
+        """Break a connection between a battery and a house"""    
+        connection.break_connection()
+        connection.battery.remove_house(connection.house)
+        connection.house.break_connection()
 
 
     def add_retry(self):
+        """Add 1 for every time the random algorithm finds invalid solution"""
         self.retries = self.retries +1
 
 
     def try_again(self):
         """Resets values to default"""
-        for house in self.get_houses():
-            house.connected = False
-            house.cable_points = []
-            house.reset_cable_length()
-        for battery in self.get_batteries():
-            battery.connected_houses = []    
+        for connection in self.connections:
+            connection.break_connection()
+        for house in self.houses:
+            house.break_connection()
+        for battery in self.batteries:
+            battery.remove_all_houses()        
+          
 
-            
-    def get_all_distances(self):
-        """Calculates all distances between batteries and houses, returns a list of dicts"""
-        all_distances = []
-        for battery in self.get_batteries():
-            for house in self.get_houses():
-                cable_length = (abs(battery.x_grid - house.x_grid) + abs(battery.y_grid - house.y_grid))
-                all_distances.append({'distance': cable_length, 'house': house, 'output': house.output, 'battery': battery})
-                  
-        return all_distances
+    def get_true_connections(self):
+        """Returns all existing connections between the batteries and houses"""
+        true_connections = [connection for connection in self.connections if connection.connected]
+        return true_connections
+
+
+    def get_false_connections(self):
+        """Returns all possible, but not existing, connections between batteries and houses"""
+        false_connections = [connection for connection in self.connections if not connection.connected]
+        return false_connections    
+
+
+    def get_house_connections(self, connection):
+        """Gets the other connections with the house of the given connection"""
+        other_house_cons = [con for con in self.connections if con.house == connection.house and con != connection]
+        return other_house_cons
+
+
+    def check_validity(self):
+        """Checks if solution is valid"""
+        if self.unconnected_houses():
+            return False
+        return True        
+
+
+    def make_cables(self):
+        """For each house calls the function to construct the cable to the connected battery"""
+        true_connections = self.get_true_connections()
+        for connection in true_connections:
+            connection.house.construct_cable(connection.battery, connection.distance)
+
+
+    def calc_costs(self):
+        """Returns the total length of all cables"""
+        true_connections = self.get_true_connections()
+        total_cable_length = sum(connection.distance+1 for connection in true_connections)   
+        return total_cable_length
 
 
     def get_output(self):
