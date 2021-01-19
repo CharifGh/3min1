@@ -19,8 +19,8 @@ class Connection():
 
     def calc_penalty(self):
         """
-        Calculates if the connection if the optimal connection for its 
-        house or how much the difference with the optimal connection is
+        Calculates if the connection is an optimal connection for its house 
+        or if it isn't how much the difference with the optimal connection is
         """
         other_house_cons = self.district.get_house_connections(self)
         smallest_distance = self.distance

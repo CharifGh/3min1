@@ -9,10 +9,10 @@ def nearestHouse(district):
     """
     while district.unconnected_houses():
         all_houses = district.get_houses()
-        all_houses.sort(key=attrgetter('output'))
+        all_houses.sort(key=attrgetter('output'), reverse=True)
 
         i=0 
-        for i in range(30):
+        for i in range(40):
             house = all_houses[i]
             house_connections = [con for con in district.get_false_connections() if con.house == house]
             house_connections.sort(key=attrgetter('distance')) 

@@ -4,11 +4,6 @@
 # Implementation of Smart Grid classes *
 # **************************************
 
-
-# loads houses and batteries 
-
-#output = return batteries and houses
-
 from .battery import Battery
 from .house import House
 from .connection import Connection
