@@ -13,27 +13,24 @@ from code.visualisation.visualisation import make_district
 
 if  __name__ == "__main__":
     
-    all_bests = []
 
-    for g in range(10):
-        total_best = None
-        total_lowest = 10000
+    total_best = None
+    total_lowest = 10000
 
-        for f in range(5):
-            test_district = district.District("data/district-1_batteries.csv","data/district-1_houses.csv")
-            possibility = randomly_connect(test_district)
-            print(f"Total cable length of semi-random valid solution ({f}): {possibility.calc_costs()}")
+    for f in range(1):
+        test_district = district.District("data/district-1_batteries.csv","data/district-1_houses.csv")
+        possibility = randomly_connect(test_district)
+        print(f"Total cable length of semi-random valid solution ({f}): {possibility.calc_costs()}")
 
-            first_algorithm = fa(possibility)
-            first_algorithm.do_stuff_with_connections()
+        first_algorithm = fa(possibility)
+        first_algorithm.do_stuff_with_connections()
 
-            print(f"Total cable length after algorithm ({f}): {first_algorithm.district.calc_costs()}")
-            
-            if first_algorithm.district.calc_costs() < total_lowest:
-                total_best = first_algorithm.district
-                total_lowest = first_algorithm.district.calc_costs()
+        print(f"Total cable length after algorithm ({f}): {first_algorithm.district.calc_costs()}")
+        
+        if first_algorithm.district.calc_costs() < total_lowest:
+            total_best = first_algorithm.district
+            total_lowest = first_algorithm.district.calc_costs()
 
-        print(f"Best solution: {total_lowest}")
-        total_best.make_cables()
-        visual_district = make_district(total_best)
-        all_bests.append({g: total_best, 'visual': visual_district})
+    print(f"Best solution: {total_lowest}")
+    total_best.make_cables()
+    visual_district = make_district(total_best)

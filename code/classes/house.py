@@ -31,13 +31,11 @@ class House():
         self.connected = False        
 
 
-    def construct_cable(self, battery, distance):
+    def construct_cable(self, bx, by, distance):
         """Calculates the x,y-intersections the cable crosses"""
         # Needs simplification
         cx = 0
         cy = 0
-        bx = battery.x_grid
-        by = battery.y_grid
         hx = self.x_grid
         hy = self.y_grid
         self.cable_points.append(f"{hx},{hy}")

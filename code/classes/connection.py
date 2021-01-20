@@ -7,6 +7,7 @@ class Connection():
         self.output =  self.house.output
         self.distance = (abs(self.battery.x_grid - self.house.x_grid) + abs(self.battery.y_grid - self.house.y_grid))
         self.connected = False
+        self.penalty = 0
 
 
     def make_connection(self):
@@ -28,4 +29,6 @@ class Connection():
             if con.distance < smallest_distance:
                 smallest_distance = con.distance
         penalty = self.distance - smallest_distance
-        return penalty
+        self.penalty = penalty
+
+

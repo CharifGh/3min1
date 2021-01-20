@@ -53,7 +53,7 @@ class District():
             for house in self.get_houses():
                 connection = Connection(self, battery, house)
                 connections.append(connection)
-        return connections      
+        return connections    
 
     
     def get_batteries(self):
@@ -122,21 +122,23 @@ class District():
     def check_validity(self):
         """Checks if solution is valid"""
         if self.unconnected_houses():
-            return False
-        return True        
+            return False 
+        for battery in self.batteries:
+            if battery.get_total_input() > battery.capacity:
+                return False
+        return True    
 
 
     def make_cables(self):
         """For each house calls the function to construct the cable to the connected battery"""
         true_connections = self.get_true_connections()
         for connection in true_connections:
-            connection.house.construct_cable(connection.battery, connection.distance)
+            connection.house.construct_cable(connection.battery.x_grid, connection.battery.y_grid, connection.distance)
 
 
     def calc_costs(self):
         """Returns the total length of all cables"""
-        true_connections = self.get_true_connections()
-        total_cable_length = sum(connection.distance+1 for connection in true_connections)   
+        total_cable_length = sum(connection.distance+1 for connection in self.get_true_connections())   
         return total_cable_length
 
 
