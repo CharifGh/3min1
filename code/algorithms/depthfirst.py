@@ -12,5 +12,5 @@ class DepthFirst:
         if connection not in visited_connections:
             visited_connections.append(connection)
             for next_con in visited_connections[connection]:
-                get_next_connection(district,connection)
+                get_next_connection(connection)
         return visited_connections
