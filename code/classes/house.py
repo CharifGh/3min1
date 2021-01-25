@@ -14,6 +14,7 @@ class House():
         self.output = float(output)
         self.connected = False
         self.cable_points = []
+        self.closeset_neighbour = None
 
 
     def get_status(self):
@@ -59,8 +60,8 @@ class House():
                 elif cy == hy:
                     cy = hy       
             self.cable_points.append(f"{cx},{cy}") 
-            i = i+1
-
+            i = i+1      
+                
 
     def __repr__(self):
         return self.location    

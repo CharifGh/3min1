@@ -11,26 +11,53 @@ from code.algorithms.nearesthouse import nearestHouse
 from code.classes import district
 from code.visualisation.visualisation import make_district
 
+
 if  __name__ == "__main__":
     
+    # Chose a district
+    which_district = input("Welk district wil je zien?: 1, 2, 3\n")
+    if which_district == '1':
+        chosen_district = district.District("data/district-1_batteries.csv","data/district-1_houses.csv")
+    elif which_district == '2':
+        chosen_district = district.District("data/district-2_batteries.csv","data/district-2_houses.csv")
+    elif which_district == '3':
+        chosen_district = district.District("data/district-3_batteries.csv","data/district-3_houses.csv")
+    else:
+        print("District not found")
+        exit()            
+    
+    # Update the connections
+    for con in chosen_district.connections:
+        con.calc_rating()
 
-    total_best = None
-    total_lowest = 10000
+    # Chose an algorithm
+    which_algorithm = input("Welk algoritme wil je toepassen?:\n HillClimber = 1\n Combinations = 2\n")
 
-    for f in range(1):
-        test_district = district.District("data/district-1_batteries.csv","data/district-1_houses.csv")
-        possibility = randomly_connect(test_district)
-        print(f"Total cable length of semi-random valid solution ({f}): {possibility.calc_costs()}")
+    if which_algorithm == '1':
+        random_district = randomly_connect(chosen_district)
+        hillclimb = fa(random_district)
+        hillclimb.do_stuff_with_connections()
+        hillclimb.district.make_cables()
+        print(hillclimb.district.calc_costs())
+        hillclimb.district.get_output()
+        visual_district = make_district(hillclimb.district)
 
-        first_algorithm = fa(possibility)
-        first_algorithm.do_stuff_with_connections()
-
-        print(f"Total cable length after algorithm ({f}): {first_algorithm.district.calc_costs()}")
+    # elif which_algorithm == '2':
+        # chosen_district.connect_bests(11)
+        # chosen_district.prune_some_more(45)
+        # dfc_district = dfc(chosen_district)
+        # best_one = dfc_district.find_best_combi()
+        # if best_one:
+            # best_one.make_cables()
+            # print(best_one.calc_costs())
+            # best_one.get_output()
+            # visual = make_district(best_one)
         
-        if first_algorithm.district.calc_costs() < total_lowest:
-            total_best = first_algorithm.district
-            total_lowest = first_algorithm.district.calc_costs()
 
-    print(f"Best solution: {total_lowest}")
-    total_best.make_cables()
-    visual_district = make_district(total_best)
+
+    else:
+        print("Algorithm not found")    
+        exit()
+
+
+    
