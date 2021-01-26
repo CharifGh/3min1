@@ -1,17 +1,26 @@
 import copy
+import math
 
 
 class SimmulatedAnnealing:
-    """Check for connections if visited append them to list."""
-    def __init__(self, district):
-        self.district = copy.deepcopy(district)
-        self.result = []
-        self.start = 1000
-        self.change = 0.97
+    """"""
+    def __init__(self, connections):
+        self.connections = copy.deepcopy(connection)
+        self.initial_temp = 1000
+        self.alpha = 0.97
+        self.final_temp = 0.01
+        self.current_temp = self.initial_temp
 
-    def connections(self):
-        while self.start < 0.0:
-            self.district.make_cables()
+    
+    
+    def hillclimb(self, connections):
+        new_connections = connections
+        solution = new_connections
+        while self.current_temp > self.final_temp:
+            self.hillclimber.make_switch(old_con,new_con)
+            # check if result is better
+            # accept new result
+            # aplly formula
 
 
 
