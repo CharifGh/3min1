@@ -2,7 +2,7 @@ from operator import attrgetter
 from itertools import combinations
 
 
-class FirstAlgorithm:
+class HillClimber:
     """Switches connections with better connections"""
     def __init__(self, valid_district):
         self.district = valid_district
@@ -32,13 +32,12 @@ class FirstAlgorithm:
             self.make_switch(cons_to_switch['second_switch'], cons_to_switch['new_second'])
         
 
-
-    def find_some_switches(self, ex_con, all_options):
+    def find_switches(self, ex_con, all_options):
         all_combis = []
         for battery_group in all_options: 
             for i in range(2,0,-1):
                 for combi in combinations(battery_group, i):
-                    combis = self.do_stuff_with_combi(combi, ex_con)
+                    combis = self.find_best_combi(combi, ex_con)
                     if combis:
                         all_combis.append(combis)
         if all_combis:
@@ -47,7 +46,7 @@ class FirstAlgorithm:
         return False    
 
 
-    def do_stuff_with_combi(self, combi, ex_con):
+    def find_best_combi(self, combi, ex_con):
         cons_to_switch = {}
         free_cap = ex_con.battery.get_free_capacity(ex_con.output)                
         linked_battery = combi[0].battery
@@ -61,8 +60,7 @@ class FirstAlgorithm:
                 total_new_distance = total_new_distance + new_second.distance
             
             total_old_distance = ex_con.distance + sum(con.distance for con in combi)
-            
-            
+      
             if total_new_distance < total_old_distance:
                 cons_to_switch['distance'] = total_new_distance
                 cons_to_switch['first_switch'] = combi[0]
@@ -74,6 +72,15 @@ class FirstAlgorithm:
                     
         return cons_to_switch                     
 
+
+    def free_switch(self, other_cons_house, ex_con):
+        """Makes connection if it can be made without switching with another connection and if it improves the distance"""
+        for option in other_cons_house:
+            if (option.battery.get_total_input() + ex_con.output) <= option.battery.capacity and option.distance < ex_con.distance:
+                self.district.break_connection(ex_con)
+                self.district.make_connection(option)
+                return True
+        return False       
 
 
     def do_stuff_with_connections(self):    
@@ -90,7 +97,7 @@ class FirstAlgorithm:
                 if self.free_switch(other_cons_house, ex_con):
                     break
                 all_options = self.get_all_options(other_cons_house)
-                cons_to_switch = self.find_some_switches(ex_con, all_options)
+                cons_to_switch = self.find_switches(ex_con, all_options)
     
                 if cons_to_switch:
                     print(f"switched {i}")
@@ -101,18 +108,6 @@ class FirstAlgorithm:
                     break
                 else: 
                     k +=1
-                    if k%30 == 0:
-                        print(f"k = {k}")
                     if k == 150:
                         if self.district.check_validity():
                             changes = False  
-
-
-    def free_switch(self, other_cons_house, ex_con):
-        """Makes connection if it can be made without switching with another connection and if it improves the distance"""
-        for option in other_cons_house:
-            if (option.battery.get_total_input() + ex_con.output) <= option.battery.capacity and option.distance < ex_con.distance:
-                self.district.break_connection(ex_con)
-                self.district.make_connection(option)
-                return True
-        return False        

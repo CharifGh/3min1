@@ -163,11 +163,10 @@ class District():
     def get_output(self):
         """Get all necessary data and puts it in a json file"""
         all_data = []
-        costs_own = 0
         costs_own = self.calc_costs()*9  
         for battery in self.batteries:
             costs_own = costs_own+5000
-        all_data.append({'district': 1, 'costs-own': costs_own})
+        all_data.append({'district': self.name, 'costs-own': costs_own})
         for battery in self.batteries:
             houses = [] 
             for house in battery.connected_houses:
