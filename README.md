@@ -1,21 +1,20 @@
 # Groep 3min1
-Smart Grid Minor Programmeren
+Smart Grid
 
-## Paulien Tideman en Charif Ghammane
+## Paulien Tideman & Charif Ghammane
 
-![alt text](images/uml.png)
-
-
-Stappenplan:
-***UML AANPASSEN***
-
-1. load houses and batteries
-1.5 cables momenteel lege list...
-1.9 simpel algoritme
-2. functies bouwen voor house en battery
-3. algorithm (deels) toevoegen aan algorithm folder
-4. output testen in main.py 
+![alt text](images/uml_official.png)
 
 
-# eerst abstract bijhhouden in een datastructuur
-# kabels later relevant maken 
+To run the program select via command-line which district you would like to get a solution for. 
+After selecting the district please select which algorithm you would like to use.
+
+Smart Grid focusses on three districts that exists out of batteries and houses. 
+The goal of this case was to connect as much houses as possible to batteries within the shortest distance without exceeding battery capacity.
+Connecting the houses is done through cables which are calculated by their length therefore all the results are the total cable length. 
+We tried this proces through the following algorithms:
+- random, this algorithm randomly connected houses to batteries.
+-hillclimber, which uses the random algorithm's connections and improves on those by switching connections untill it gets better results.
+- depthfirstcombis, which is a depth first search that first starts by pruning to decrease the state-space and then makes connections based on combinations of houses and batteries. 
+
+*the experimental folder contains algorithms that have a strong logical foundation but did not produce valid results* 

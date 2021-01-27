@@ -16,21 +16,22 @@ class DepthFirstCombinations():
         first_combis = self.district.get_all_combis(self.batteries[0], 6, 10)
         for combi in first_combis:
             self.add_states(combi)
-        print(f"number of states: {len(self.states)}")
+        # print(f"number of states: {len(self.states)}")
         while self.states:
             new_district = self.get_next_state()
             self.second_combis = new_district.get_all_combis(new_district.batteries[1], 4, 10)
-            print(len(self.second_combis))
+            # print(len(self.second_combis))
             for combi2 in self.second_combis:
                 self.make_second_descent(new_district, combi2)
         return self.best_result                
 
 
     def make_second_descent(self, new_district, combi2):
+        # """Creates first layer of combinations"""
         for con in combi2['combi']:
             new_district.make_connection(con)   
         self.third_combis = new_district.get_all_combis(new_district.batteries[2], 3, 7)
-        print(len(self.third_combis))
+        # print(len(self.third_combis))
         for combi3 in self.third_combis:
             self.make_third_descent(new_district, combi3)
         for con in combi2['combi']:
@@ -38,10 +39,11 @@ class DepthFirstCombinations():
             
 
     def make_third_descent(self, new_district, combi3):
+        """Creates second layer of combinations"""
         for con in combi3['combi']:
             new_district.make_connection(con)
         self.fourth_combis = new_district.get_all_combis(new_district.batteries[3], 3, 4)
-        print(f"got to fourth {len(self.fourth_combis)}")
+        # print(f"got to fourth {len(self.fourth_combis)}")
         for combi4 in self.fourth_combis:
             self.make_fourth_descent(new_district, combi4)
         for con in combi3['combi']:
@@ -49,6 +51,7 @@ class DepthFirstCombinations():
             
     
     def make_fourth_descent(self, new_district, combi4):
+        # """Creates thid layer of combinations"""
         for con4 in combi4['combi']:
             new_district.make_connection(con4)
         self.fifth_combis = new_district.get_all_combis(new_district.batteries[4], 1, 2)
@@ -57,7 +60,7 @@ class DepthFirstCombinations():
             for con5 in combi5['combi']:
                 new_district.make_connection(con5)
             if new_district.check_validity():
-                print("got one!------------------------------------------------")
+                # print("got one!------------------------------------------------")
                 valid_solution = copy.deepcopy(new_district)
                 self.valid_solutions.append(valid_solution)
                 self.compare_solution(valid_solution)
@@ -70,6 +73,7 @@ class DepthFirstCombinations():
 
 
     def get_fifth_combis(self):
+        # """Creates final layer of combinations"""
         self.fifth_combis.sort(key=lambda d: d['distance'])
         first_fifth = self.fifth_combis[0]
         for any_distance in self.all_distances:

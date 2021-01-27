@@ -1,24 +1,24 @@
-import copy
-import math
+# import copy
+# import math
 
 
-class SimmulatedAnnealing:
-    """"""
-    def __init__(self, connections):
-        self.connections = copy.deepcopy(connection)
-        self.initial_temp = 1000
-        self.alpha = 0.97
-        self.final_temp = 0.01
-        self.current_temp = self.initial_temp
+# class SimmulatedAnnealing:
+#     """"""
+#     def __init__(self, connections):
+#         self.connections = copy.deepcopy(connection)
+#         self.initial_temp = 1000
+#         self.alpha = 0.97
+#         self.final_temp = 0.01
+#         self.current_temp = self.initial_temp
 
     
     
-    def hillclimb(self, connections):
-        new_connections = connections
-        solution = new_connections
-        while self.current_temp > self.final_temp:
-            self.hillclimber.make_switch(old_con,new_con)
-            # check if result is better
+#     def hillclimb(self, connections):
+#         new_connections = connections
+#         solution = new_connections
+#         while self.current_temp > self.final_temp:
+#             pass
+            
             # accept new result
             # aplly formula
 
