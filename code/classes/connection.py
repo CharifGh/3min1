@@ -36,6 +36,7 @@ class Connection():
 
 
     def battery_available(self):
+        """Returns True if this connection can be made without going over the max capacity of its battery"""
         if (self.battery.get_total_input() + self.output) <= self.battery.capacity:
             return True
         return False    

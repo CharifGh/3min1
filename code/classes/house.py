@@ -34,7 +34,6 @@ class House():
 
     def construct_cable(self, bx, by, distance):
         """Calculates the x,y-intersections the cable crosses"""
-        # Needs simplification
         cx = 0
         cy = 0
         hx = self.x_grid

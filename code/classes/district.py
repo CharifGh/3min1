@@ -176,7 +176,6 @@ class District():
 
         out_file = open('output.json', 'w')
         json.dump(all_data, out_file)
-
         out_file.close()   
 
         
@@ -186,16 +185,9 @@ class District():
         bat_cons = [bc for bc in all_cons if bc.battery.location == battery.location and not bc.house.get_status()]
         return bat_cons
 
-            
-    def get_lowest_batteries(self):
-        """Returns a list of the batteries sorted by the highest input"""
-        batteries = self.batteries
-        batteries.sort(key=lambda s: s.get_total_input())
-        return batteries
-
 
     def get_all_combis(self, battery):
-        """Finds possible combis for a battery"""
+        """Finds possible combinations of connections for a battery"""
         max_houses = self.get_max_houses(battery)
         min_houses = self.get_min_houses(battery)
         all_bat_cons = self.get_bat_cons(battery)
