@@ -101,7 +101,6 @@ class HillClimber:
                 cons_to_switch = self.find_switches(ex_con, all_options)
     
                 if cons_to_switch:
-                    print(f"switched {i}")
                     i += 1
                     self.switch_these(cons_to_switch, ex_con)
                     changes = True
