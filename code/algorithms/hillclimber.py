@@ -47,6 +47,7 @@ class HillClimber:
 
 
     def find_best_combi(self, combi, ex_con):
+        """Searches for the best combination"""
         cons_to_switch = {}
         free_cap = ex_con.battery.get_free_capacity(ex_con.output)                
         linked_battery = combi[0].battery

@@ -1,27 +1,35 @@
-<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>50</x><y>200</y><w>210</w><h>320</h></coordinates><panel_attributes>&lt;&lt;houses&gt;&gt;
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>40</x><y>190</y><w>210</w><h>320</h></coordinates><panel_attributes>&lt;&lt;houses&gt;&gt;
 Package::HouseClass
 {Energy output}
 --
 -id: coordinates
 _-ClassAttribute: Float
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>50</x><y>80</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: House_
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>40</x><y>70</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: House_
 --
 id: coordinates
-[energy output]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>420</x><y>80</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: Battery
+[energy output]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>410</x><y>70</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: Battery
 --
 id: coordinates
-[energy intake]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>790</x><y>80</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: District
+[energy intake]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>770</x><y>70</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: District
 id=int
-[loads houses and batteries]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>420</x><y>200</y><w>210</w><h>320</h></coordinates><panel_attributes>&lt;&lt;batteries&gt;&gt;
+[loads houses and batteries]</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>410</x><y>190</y><w>210</w><h>320</h></coordinates><panel_attributes>&lt;&lt;batteries&gt;&gt;
 Package::BatteryClass
 {Energy intake}
 --
 -id: coordinates
 -ClassAttribute: Float
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>780</x><y>200</y><w>210</w><h>320</h></coordinates><panel_attributes>&lt;&lt;Districts&gt;&gt;
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>770</x><y>190</y><w>210</w><h>320</h></coordinates><panel_attributes>&lt;&lt;Districts&gt;&gt;
 Package:DisrictClass
 {loads houses and batteries}
 --
 
 Responsibilities
--return houses and batteries</panel_attributes><additional_attributes></additional_attributes></element></diagram>
+-return houses and batteries</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1040</x><y>190</y><w>240</w><h>320</h></coordinates><panel_attributes>&lt;&lt;Connections&gt;&gt;
+Package:ConnectionClass
+{creates cable connections}
+
+Responsibilities
+loads connections of houses and batteries
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>1050</x><y>70</y><w>210</w><h>70</h></coordinates><panel_attributes>_object: Connection
+id=int
+[loads connections]</panel_attributes><additional_attributes></additional_attributes></element></diagram>
