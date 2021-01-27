@@ -21,7 +21,26 @@ We tried this proces through the following algorithms:
 
     - depthfirstcombis, which is a depth first search that first starts by pruning to decrease the state-space and then makes connections based on combinations of houses and batteries. 
 
+Repository contains following files:
+
+- Code: folder contains all the algorithms classes and visulasation code.
+
+- Algorithms: folder contains the used algorithms
+
 *the experimental folder contains algorithms that have a strong logical foundation but did not produce valid results* 
 
-
 *not_for_grading folder contains algorithms which should not be graded* 
+
+- Classes: folder contains all the classes we have used.
+
+- Visualastion: folder contains all code for visualisations.
+
+- Data: folder contains all data for districts to be implemented.
+
+- Docs: folder contains json output file.
+
+- Images: folder contains all images used in Readme.
+
+- Uml's: folder contains uml file used in Readme.
+
+- Visuals: folder contains all visual data and graphs.
