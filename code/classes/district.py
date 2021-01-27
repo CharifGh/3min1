@@ -240,15 +240,15 @@ class District():
 
 
     def connect_bests(self, penalty):
-            """Connects the houses with a high penalty for their second best battery to their best battery"""
-            x_bests = [con for con in self.connections if con.x_best == 2 and con.penalty > penalty]
-            x_bests.sort(key=attrgetter('penalty'), reverse=True)
-            for connection in x_bests:
-                other_connections = [con for con in self.get_house_connections(connection.house) if con.x_best < 2]
-                if other_connections:
-                    best = other_connections[0]
-                    if (best.battery.get_total_input() + best.output) <= best.battery.capacity and not best.house.get_status():
-                        self.make_connection(best)      
+        """Connects the houses with a high penalty for their second best battery to their best battery"""
+        x_bests = [con for con in self.connections if con.x_best == 2 and con.penalty > penalty]
+        x_bests.sort(key=attrgetter('penalty'), reverse=True)
+        for connection in x_bests:
+            other_connections = [con for con in self.get_house_connections(connection.house) if con.x_best < 2]
+            if other_connections:
+                best = other_connections[0]
+                if (best.battery.get_total_input() + best.output) <= best.battery.capacity and not best.house.get_status():
+                    self.make_connection(best)      
 
 
     def prune_some_more(self, number_of_houses):
