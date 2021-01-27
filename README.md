@@ -12,7 +12,9 @@ After selecting the district please select which algorithm you would like to use
 Smart Grid focusses on three districts that exists out of batteries and houses. 
 The goal of this case was to connect as much houses as possible to batteries within the shortest distance without exceeding battery capacity.
 Connecting the houses is done through cables which are calculated by their length therefore all the results are the total cable length. 
+
 We tried this proces through the following algorithms:
+
     - random, this algorithm randomly connected houses to batteries.
 
     -hillclimber, which uses the random algorithm's connections and improves on those by switching connections untill it gets better results.
