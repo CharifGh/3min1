@@ -19,6 +19,7 @@ class District():
         self.connections = self.get_all_connections()
         self.retries = 0
         self.total_free_cap = self.calc_total_free_cap()
+        self.free_batteries = [b for b in self.batteries if self.get_max_houses(b) > 0]
         
 
     def get_name(self, batteries_file):
@@ -181,39 +182,34 @@ class District():
         
     def get_bat_cons(self, battery):
         """Returns a list of all available connections for a battery"""
-        all_cons = self.get_false_connections()
-        bat_cons = [bc for bc in all_cons if bc.battery == battery and not bc.house.get_status()]
+        all_cons = self.get_false_connections()    
+        bat_cons = [bc for bc in all_cons if bc.battery.location == battery.location and not bc.house.get_status()]
         return bat_cons
 
             
-    def get_fullest_batteries(self):
+    def get_lowest_batteries(self):
         """Returns a list of the batteries sorted by the highest input"""
         batteries = self.batteries
-        batteries.sort(key=lambda s: s.get_total_input(), reverse=True)
+        batteries.sort(key=lambda s: s.get_total_input())
         return batteries
 
 
-    def get_all_combis(self, battery, extra, some_value):
+    def get_all_combis(self, battery):
         """Finds possible combis for a battery"""
         max_houses = self.get_max_houses(battery)
         min_houses = self.get_min_houses(battery)
-
-        bat_cons = self.get_bat_cons(battery)
-        bat_cons.sort(key=attrgetter('x_best'))
-        bat_cons2 = bat_cons[0:max_houses+extra]
-
-        bat_combis = []
-        for i in range(min_houses, max_houses+1, 1):
-            for combi in combinations(bat_cons2, i):
-                combi_output = sum(com.output for com in combi)
-                free_battery_cap = battery.capacity - battery.get_total_input()
-                if combi_output <= free_battery_cap and (battery.capacity - combi_output - battery.get_total_input()) < (self.total_free_cap/some_value):
-                    bat_combis.append({
-                        'distance': sum(con.distance for con in combi),
-                        'output': combi_output,
-                        'combi': combi
-                    })
-        return bat_combis
+        all_bat_cons = self.get_bat_cons(battery)
+        
+        if all_bat_cons: 
+            bat_combis = []
+            for i in range(min_houses, max_houses+1, 1):
+                for combi in combinations(all_bat_cons, i):
+                    combi_output = sum(com.output for com in combi)
+                    free_battery_cap = battery.capacity - battery.get_total_input()
+                    if combi_output <= free_battery_cap and (battery.capacity - combi_output - battery.get_total_input()) < self.total_free_cap:
+                        bat_combis.append(combi)
+            return bat_combis
+        return None   
 
 
     def calc_total_free_cap(self):
@@ -243,10 +239,11 @@ class District():
         houses = self.unconnected_houses()
         houses.sort(key=attrgetter('output'))
         max_houses = 0
-        for house in houses:
-            if (free_space - house.output) >= 0:
-                max_houses = max_houses + 1
-                free_space = free_space - house.output        
+        if houses:
+            for house in houses:
+                if (free_space - house.output) >= 0:
+                    max_houses = max_houses + 1
+                    free_space = free_space - house.output        
         return max_houses
 
 
@@ -295,3 +292,10 @@ class District():
         if total > free_cap or total < (free_cap/10):       
             self.make_connection(best_option)
             return True            
+
+
+    def get_available_batteries(self):
+        """Returns a battery from the list of batteries that can be connected to at least one more house"""
+        if self.free_batteries:
+            return self.free_batteries.pop(0)
+        return None 

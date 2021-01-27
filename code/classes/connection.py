@@ -37,6 +37,6 @@ class Connection():
 
     def battery_available(self):
         if (self.battery.get_total_input() + self.output) <= self.battery.capacity:
-            return False
-        return True    
+            return True
+        return False    
 

@@ -43,17 +43,20 @@ if  __name__ == "__main__":
         print(hillclimb.district.calc_costs())
         visual = make_district(hillclimb.district)
 
-    # With the current parameters this only works on district 2 and it takes a long time
+
+    # Takes a long time, might not find anything
     elif which_algorithm == '2':
-        chosen_district.connect_bests(11)
-        chosen_district.prune_some_more(45)
+        chosen_district.connect_bests(10)
+        chosen_district.prune_some_more(20)
+
         dfc_district = dfc(chosen_district)
-        best_one = dfc_district.find_best_combi()
-        if best_one:
-            best_one.make_cables()
-            print(best_one.calc_costs())
-            best_one.get_output()
-            visual = make_district(best_one)   
+        dfc_district.find_best_combi()
+        if dfc_district.best_result:
+            dfc_district.best_result.make_cables()
+            print(dfc_district.best_result.calc_costs())
+            dfc_district.best_result.get_output()
+            visual = make_district(dfc_district.best_result)
+        
 
     # Won't give valid solutions yet
     elif which_algorithm == '3':
@@ -62,6 +65,11 @@ if  __name__ == "__main__":
         chosen_district.calc_distance()
         visuals = make_district(chosen_district)
 
+
+
     else:
         print("Algorithm not found")    
         exit()
+
+
+    
