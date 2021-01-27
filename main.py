@@ -10,7 +10,7 @@ from code.algorithms.random import randomly_connect
 from code.classes import district
 from code.visualisation.visualisation import make_district
 from code.visualisation.supporting_visuals import make_graph
-from code.algorithms.greedy_sharing import share_cables, make_groups
+from code.algorithms.experimental.greedy_sharing import share_cables, make_groups
 from code.algorithms.depthfirstcombis import DepthFirstCombinations as dfc
 
 
